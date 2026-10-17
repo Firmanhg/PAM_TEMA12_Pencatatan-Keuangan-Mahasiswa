@@ -140,7 +140,8 @@ fun App() {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "1. Firman H Gultom (123140171)\n" ,
+                        text = "1. Firman H Gultom (123140171)\n" +
+                                "2. Hildyah Maretasya Araffad (123140151)\n",
                         fontSize = 14.sp,
                         lineHeight = 22.sp,
                         textAlign = TextAlign.Center,
@@ -208,7 +209,7 @@ private fun DrawScope.drawCubeLogo() {
         path = polygon(
             listOf(
                 centerRight,
-                rightTop,
+                rightTop,git status
                 rightBottom,
                 bottom,
                 centerBottom
