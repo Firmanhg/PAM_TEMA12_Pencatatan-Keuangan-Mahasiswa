@@ -2,16 +2,13 @@
 package org.example.project
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,8 +27,6 @@ private val TopBlue = Color(0xFF35B9F5)
 private val LeftBlue = Color(0xFF6066F5)
 private val RightPurple = Color(0xFF6950FF)
 
-
-
 @Composable
 fun App() {
     var showMembers by remember { mutableStateOf(false) }
@@ -42,12 +37,14 @@ fun App() {
             color = BackgroundPurple
         ) {
             if (!showMembers) {
-                // Tampilan awal seperti foto 1
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .safeContentPadding()
-                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                        .padding(
+                            horizontal = 20.dp,
+                            vertical = 24.dp
+                        ),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.height(28.dp))
@@ -79,12 +76,14 @@ fun App() {
                     }
                 }
             } else {
-                // Tampilan setelah tombol diklik
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .safeContentPadding()
-                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                        .padding(
+                            horizontal = 20.dp,
+                            vertical = 24.dp
+                        ),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.height(12.dp))
@@ -140,8 +139,9 @@ fun App() {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "1. Firman H Gultom (123140171)\n" +
-                                "2. Hildyah Maretasya Araffad (123140151)\n",
+                        text = "Firman H Gultom (123140171)\n" +
+                                "Hildyah Maretasya Araffad (123140151)\n" +
+                                "Roberto Charlos Sagala (123140113)",
                         fontSize = 14.sp,
                         lineHeight = 22.sp,
                         textAlign = TextAlign.Center,
@@ -152,7 +152,6 @@ fun App() {
         }
     }
 }
-
 
 private fun DrawScope.drawCubeLogo() {
     val w = size.width
@@ -182,7 +181,6 @@ private fun DrawScope.drawCubeLogo() {
         }
     }
 
-    // Bagian atas kubus
     drawPath(
         path = polygon(
             listOf(top, leftTop, centerLeft, centerRight, rightTop)
@@ -190,7 +188,6 @@ private fun DrawScope.drawCubeLogo() {
         color = TopBlue
     )
 
-    // Sisi kiri kubus
     drawPath(
         path = polygon(
             listOf(
@@ -204,12 +201,11 @@ private fun DrawScope.drawCubeLogo() {
         color = LeftBlue
     )
 
-    // Sisi kanan kubus
     drawPath(
         path = polygon(
             listOf(
                 centerRight,
-                rightTop,git status
+                rightTop,
                 rightBottom,
                 bottom,
                 centerBottom
@@ -218,7 +214,6 @@ private fun DrawScope.drawCubeLogo() {
         color = RightPurple
     )
 
-    // Bagian tengah berbentuk heksagon hitam
     drawPath(
         path = polygon(
             listOf(
