@@ -1,35 +1,87 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# Tema 12 - Pencatatan Keuangan Mahasiswa
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Repository ini berisi proyek aplikasi **Pencatatan Keuangan Mahasiswa** yang dikembangkan menggunakan Kotlin Multiplatform (KMP) untuk mata kuliah Pengembangan Aplikasi Mobile. Proyek ini dibangun menggunakan template Compose Multiplatform dengan Kotlin sebagai bahasa pemrograman dan Jetpack Compose untuk membangun antarmuka aplikasi.
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## Anggota Kelompok
 
-### Running the apps
+- **Ketua:** Roberto Charlos Sagala (123140113)
+- **Anggota:**
+  - Hildyah Maretasya Araffad (123140151)
+  - Firman H Gultom (123140171)
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+## Tangkapan Layar Aplikasi
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- Desktop app:
-  - Hot reload: `./gradlew :desktopApp:hotRun --auto`
-  - Standard run: `./gradlew :desktopApp:run`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+<img width="193" height="395" alt="Cuplikan layar 2026-10-17 223411" src="https://github.com/user-attachments/assets/19766353-0dd6-40b0-9744-3104bc6c343c" />
 
-### Running tests
+<img width="192" height="391" alt="Cuplikan layar 2026-10-17 223328" src="https://github.com/user-attachments/assets/4be4973c-13c0-4f4d-bc65-2213ab1f8374" />
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
 
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- Desktop tests: `./gradlew :shared:jvmTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
+## Struktur Proyek
 
----
+Proyek ini menggunakan Kotlin Multiplatform dengan target Android, iOS, dan Desktop (JVM).
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+- **`androidApp`** merupakan modul aplikasi Android.
+- **`desktopApp`** merupakan modul aplikasi Desktop berbasis JVM.
+- **`iosApp`** berisi proyek aplikasi iOS dan menjadi titik masuk untuk menjalankan aplikasi pada platform Apple.
+- **`shared`** berisi kode Kotlin dan antarmuka Compose yang digunakan bersama oleh berbagai platform.
+
+Pada modul `shared`, kode dibagi berdasarkan target platform:
+
+- **`commonMain`** berisi kode umum yang dapat digunakan bersama oleh seluruh target yang didukung.
+- **`androidMain`** berisi implementasi khusus Android.
+- **`iosMain`** berisi implementasi khusus iOS.
+- **`jvmMain`** berisi implementasi khusus Desktop/JVM.
+
+## Menjalankan Aplikasi
+
+Jalankan aplikasi melalui konfigurasi Run yang tersedia di Android Studio atau gunakan perintah Gradle berikut dari direktori utama proyek.
+
+### Android
+
+```bash
+./gradlew :androidApp:assembleDebug
+```
+
+### Desktop
+
+Menjalankan aplikasi Desktop:
+
+```bash
+./gradlew :desktopApp:run
+```
+
+Menjalankan Desktop dengan hot reload:
+
+```bash
+./gradlew :desktopApp:hotRun --auto
+```
+
+### iOS
+
+Buka direktori `iosApp` menggunakan Xcode, lalu pilih simulator atau perangkat iOS untuk menjalankan aplikasi.
+
+## Menjalankan Pengujian
+
+Pengujian dapat dijalankan melalui Android Studio atau menggunakan perintah Gradle berikut.
+
+### Android
+
+```bash
+./gradlew :shared:testAndroidHostTest
+```
+
+### Desktop
+
+```bash
+./gradlew :shared:jvmTest
+```
+
+### iOS Simulator
+
+```bash
+./gradlew :shared:iosSimulatorArm64Test
+```
+
+## Tujuan Proyek
+
+Aplikasi ini dirancang sebagai proyek pembelajaran pengembangan aplikasi mobile menggunakan Kotlin Multiplatform. Tema yang diangkat adalah pencatatan keuangan mahasiswa, dengan tujuan menjadi dasar pengembangan aplikasi untuk membantu mahasiswa mencatat dan mengelola pengeluaran keuangan mereka.
