@@ -110,8 +110,6 @@ Program selesai tanpa error dan Gradle menampilkan `BUILD SUCCESSFUL`.
 
 ### Screenshot Hasil Konsol
 
-Simpan screenshot hasil pengujian di folder utama repository dengan nama `hasil-pengujian.png`.
-
 <img width="304" height="73" alt="image" src="https://github.com/user-attachments/assets/10a3180b-2c18-458c-93b7-996266c80718" />
 
 
