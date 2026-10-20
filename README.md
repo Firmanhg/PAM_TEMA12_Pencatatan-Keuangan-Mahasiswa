@@ -82,6 +82,37 @@ Pengujian dapat dijalankan melalui Android Studio atau menggunakan perintah Grad
 ./gradlew :shared:iosSimulatorArm64Test
 ```
 
+## Pengujian Simulasi Pencatatan Keuangan Mahasiswa
+
+Program menggunakan `SumberTransaksiPalsu` untuk menghasilkan perubahan status transaksi melalui `Flow`. Setiap status diterima menggunakan `collect`, kemudian ditampilkan di konsol menggunakan fungsi `label()`.
+
+### Cara Menjalankan
+
+Buka PowerShell di folder utama project, lalu jalankan:
+
+```powershell
+.\gradlew.bat :desktopApp:runSimulasi --console=plain
+```
+
+### Hasil Pengujian
+
+Simulasi berhasil dijalankan dengan urutan output berikut:
+
+```text
+Simulasi pencatatan keuangan mahasiswa #1
+Transaksi tercatat
+Transaksi sedang diproses: Memeriksa transaksi
+Transaksi selesai: Pengeluaran berhasil dicatat
+Simulasi selesai.
+```
+
+Program selesai tanpa error dan Gradle menampilkan `BUILD SUCCESSFUL`.
+
+### Screenshot Hasil Konsol
+
+<img width="304" height="73" alt="image" src="https://github.com/user-attachments/assets/10a3180b-2c18-458c-93b7-996266c80718" />
+
+
 ## Tujuan Proyek
 
 Aplikasi ini dirancang sebagai proyek pembelajaran pengembangan aplikasi mobile menggunakan Kotlin Multiplatform. Tema yang diangkat adalah pencatatan keuangan mahasiswa, dengan tujuan menjadi dasar pengembangan aplikasi untuk membantu mahasiswa mencatat dan mengelola pengeluaran keuangan mereka.
