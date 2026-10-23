@@ -26,3 +26,12 @@ compose.desktop {
         }
     }
 }
+
+
+tasks.register<JavaExec>("runSimulasi") {
+    group = "application"
+    description = "Menjalankan simulasi transaksi keuangan mahasiswa"
+
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("org.example.project.SimulasiKt")
+}

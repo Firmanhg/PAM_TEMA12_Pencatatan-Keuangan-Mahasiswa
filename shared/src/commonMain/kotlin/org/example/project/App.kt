@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.example.project.ui.LayarUtama
 
 private val BackgroundPurple = Color(0xFFEBDDFF)
 private val ButtonPurple = Color(0xFF6B4EAA)
@@ -30,123 +31,151 @@ private val RightPurple = Color(0xFF6950FF)
 @Composable
 fun App() {
     var showMembers by remember { mutableStateOf(false) }
+    var showTransactions by remember { mutableStateOf(false) }
 
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = BackgroundPurple
         ) {
-            if (!showMembers) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .safeContentPadding()
-                        .padding(
-                            horizontal = 20.dp,
-                            vertical = 24.dp
-                        ),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(28.dp))
+            when {
+                showTransactions -> {
+                    LayarUtama()
+                }
 
-                    Text(
-                        text = "Tema 12 - Pencatatan Keuangan Mahasiswa",
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color(0xFF211B2A)
-                    )
-
-                    Spacer(modifier = Modifier.height(22.dp))
-
-                    Button(
-                        onClick = { showMembers = true },
-                        shape = RoundedCornerShape(50),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = ButtonPurple
-                        ),
-                        contentPadding = PaddingValues(
-                            horizontal = 24.dp,
-                            vertical = 10.dp
-                        )
+                showMembers -> {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .safeContentPadding()
+                            .padding(
+                                horizontal = 20.dp,
+                                vertical = 24.dp
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Spacer(Modifier.height(12.dp))
+
                         Text(
-                            text = "Tentang Kelompok",
-                            fontSize = 14.sp
+                            text = "Tema 12 - Pencatatan Keuangan Mahasiswa",
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF211B2A)
+                        )
+
+                        Spacer(Modifier.height(18.dp))
+
+                        Button(
+                            onClick = { showMembers = false },
+                            shape = RoundedCornerShape(50),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = ButtonPurple
+                            )
+                        ) {
+                            Text("Kembali")
+                        }
+
+                        Spacer(Modifier.height(20.dp))
+
+                        Canvas(
+                            modifier = Modifier
+                                .fillMaxWidth(0.78f)
+                                .aspectRatio(1f)
+                        ) {
+                            drawCubeLogo()
+                        }
+
+                        Spacer(Modifier.height(16.dp))
+
+                        Text(
+                            text = "Berjalan di: Android",
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF211B2A)
+                        )
+
+                        Spacer(Modifier.height(20.dp))
+
+                        Text(
+                            text = "=== Daftar Anggota ===",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF211B2A)
+                        )
+
+                        Spacer(Modifier.height(8.dp))
+
+                        Text(
+                            text = "Firman H Gultom (123140171)\n" +
+                                    "Hildyah Maretasya Araffad (123140151)\n" +
+                                    "Roberto Charlos Sagala (123140113)",
+                            fontSize = 14.sp,
+                            lineHeight = 22.sp,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF211B2A)
                         )
                     }
                 }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .safeContentPadding()
-                        .padding(
-                            horizontal = 20.dp,
-                            vertical = 24.dp
-                        ),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.height(12.dp))
 
-                    Text(
-                        text = "Tema 12 - Pencatatan Keuangan Mahasiswa",
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color(0xFF211B2A)
-                    )
-
-                    Spacer(modifier = Modifier.height(18.dp))
-
-                    Button(
-                        onClick = { showMembers = false },
-                        shape = RoundedCornerShape(50),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = ButtonPurple
-                        )
-                    ) {
-                        Text("Kembali")
-                    }
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Canvas(
+                else -> {
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth(0.78f)
-                            .aspectRatio(1f)
+                            .fillMaxSize()
+                            .safeContentPadding()
+                            .padding(
+                                horizontal = 20.dp,
+                                vertical = 24.dp
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        drawCubeLogo()
+                        Spacer(Modifier.height(28.dp))
+
+                        Text(
+                            text = "Tema 12 - Pencatatan Keuangan Mahasiswa",
+                            fontSize = 16.sp,
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFF211B2A)
+                        )
+
+                        Spacer(Modifier.height(22.dp))
+
+                        Button(
+                            onClick = { showTransactions = true },
+                            shape = RoundedCornerShape(50),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = ButtonPurple
+                            ),
+                            contentPadding = PaddingValues(
+                                horizontal = 24.dp,
+                                vertical = 10.dp
+                            )
+                        ) {
+                            Text(
+                                text = "Mulai Pencatatan",
+                                fontSize = 14.sp
+                            )
+                        }
+
+                        Spacer(Modifier.height(10.dp))
+
+                        Button(
+                            onClick = { showMembers = true },
+                            shape = RoundedCornerShape(50),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = ButtonPurple
+                            ),
+                            contentPadding = PaddingValues(
+                                horizontal = 24.dp,
+                                vertical = 10.dp
+                            )
+                        ) {
+                            Text(
+                                text = "Tentang Kelompok",
+                                fontSize = 14.sp
+                            )
+                        }
                     }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = "Berjalan di: Android",
-                        fontSize = 15.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color(0xFF211B2A)
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Text(
-                        text = "=== Daftar Anggota ===",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Medium,
-                        textAlign = TextAlign.Center,
-                        color = Color(0xFF211B2A)
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = "Firman H Gultom (123140171)\n" +
-                                "Hildyah Maretasya Araffad (123140151)\n" +
-                                "Roberto Charlos Sagala (123140113)",
-                        fontSize = 14.sp,
-                        lineHeight = 22.sp,
-                        textAlign = TextAlign.Center,
-                        color = Color(0xFF211B2A)
-                    )
                 }
             }
         }
