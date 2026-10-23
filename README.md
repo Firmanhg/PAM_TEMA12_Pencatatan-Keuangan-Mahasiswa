@@ -82,7 +82,7 @@ Pengujian dapat dijalankan melalui Android Studio atau menggunakan perintah Grad
 ./gradlew :shared:iosSimulatorArm64Test
 ```
 
-## Pengujian Simulasi Pencatatan Keuangan Mahasiswa
+## Modul 2. Pengujian Simulasi Pencatatan Keuangan Mahasiswa
 
 Program menggunakan `SumberTransaksiPalsu` untuk menghasilkan perubahan status transaksi melalui `Flow`. Setiap status diterima menggunakan `collect`, kemudian ditampilkan di konsol menggunakan fungsi `label()`.
 
@@ -111,6 +111,98 @@ Program selesai tanpa error dan Gradle menampilkan `BUILD SUCCESSFUL`.
 ### Screenshot Hasil Konsol
 
 <img width="304" height="73" alt="image" src="https://github.com/user-attachments/assets/10a3180b-2c18-458c-93b7-996266c80718" />
+
+
+## Modul 3 - Daftar Transaksi dan Tombol Tambah
+
+Halaman daftar transaksi menampilkan data transaksi dummy menggunakan `LazyColumn` dan komponen `KartuTransaksi`. Daftar transaksi diurutkan berdasarkan ID terbesar menggunakan `sortedByDescending`, sehingga transaksi dengan ID terbesar ditampilkan terlebih dahulu. Setiap kartu menampilkan informasi transaksi, seperti nama transaksi, kategori, dan nominal sesuai data yang digunakan pada aplikasi.
+
+Tombol tambah atau Floating Action Button (FAB) berada di bagian kanan bawah halaman dan tetap tersedia ketika daftar transaksi digulir. Pada implementasi saat ini, tombol tersebut belum digunakan untuk menambahkan transaksi baru atau membuka formulir pencatatan.
+
+
+## Tampilan Aplikasi Pencatatan Keuangan Mahasiswa
+
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/f730cdce-a8a6-489f-a92b-047313fed07b" /> 
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/aa227edc-9845-4bed-bfe0-a4765c2581fd" /> 
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/567c0e60-9139-45c0-bb92-ff1495203cde" />
+
+
+### Panduan Menjalankan Project
+
+#### Menjalankan Aplikasi di Android Studio
+
+1. Buka Android Studio, pilih **Open**, lalu pilih folder utama proyek.
+2. Tunggu hingga proses Gradle Sync selesai.
+3. Pilih konfigurasi aplikasi yang tersedia.
+4. Pilih emulator Android atau perangkat yang terhubung.
+5. Klik **Run** untuk menjalankan aplikasi.
+
+#### Menjalankan Simulasi Status Transaksi
+
+Buka tab **Terminal** di Android Studio dengan shell PowerShell. Jalankan perintah berikut dari folder utama proyek:
+
+```powershell
+.\gradlew.bat :desktopApp:runSimulasi --console=plain
+```
+
+Perintah ini digunakan untuk menjalankan simulasi perubahan status transaksi melalui `SumberTransaksiPalsu` yang menggunakan Kotlin Flow.
+
+### Struktur Project
+
+Proyek ini merupakan Kotlin Multiplatform yang menargetkan Android, iOS, dan Desktop (JVM).
+
+- `androidApp` merupakan modul aplikasi Android.
+- `desktopApp` merupakan modul aplikasi Desktop berbasis JVM.
+- `iosApp` berisi proyek aplikasi iOS dan menjadi titik masuk untuk menjalankan aplikasi pada platform Apple.
+- `shared` berisi kode Kotlin dan antarmuka Compose yang digunakan bersama oleh berbagai platform.
+
+Pada modul `shared`, kode aplikasi ditempatkan pada direktori `commonMain`, sedangkan pengujian JVM ditempatkan pada `jvmTest`.
+
+### Menjalankan Aplikasi
+
+Aplikasi dapat dijalankan melalui konfigurasi Run di Android Studio atau menggunakan perintah Gradle berikut dari direktori utama proyek.
+
+- Android:
+
+  ```bash
+  ./gradlew :androidApp:assembleDebug
+  ```
+
+- Desktop:
+
+  ```bash
+  ./gradlew :desktopApp:run
+  ```
+
+- Desktop dengan hot reload:
+
+  ```bash
+  ./gradlew :desktopApp:hotRun --auto
+  ```
+
+- iOS: buka direktori `iosApp` menggunakan Xcode, kemudian pilih simulator atau perangkat iOS untuk menjalankan aplikasi.
+
+### Menjalankan Pengujian
+
+Pengujian dapat dijalankan melalui Android Studio atau menggunakan perintah Gradle berikut.
+
+- Pengujian Android:
+
+  ```bash
+  ./gradlew :shared:testAndroidHostTest
+  ```
+
+- Pengujian Desktop:
+
+  ```bash
+  ./gradlew :shared:jvmTest
+  ```
+
+- Pengujian iOS Simulator:
+
+  ```bash
+  ./gradlew :shared:iosSimulatorArm64Test
+  ```
 
 
 ## Tujuan Proyek
