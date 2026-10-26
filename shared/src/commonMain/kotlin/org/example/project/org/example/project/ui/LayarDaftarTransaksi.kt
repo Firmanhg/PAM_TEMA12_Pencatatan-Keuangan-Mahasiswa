@@ -34,7 +34,9 @@ private val Ungu = Color(0xFF6B4EAA)
 private val Latar = Color(0xFFF7F3FC)
 
 @Composable
-fun LayarDaftarTransaksi() {
+fun LayarDaftarTransaksi(
+    onTambahTransaksi: () -> Unit
+) {
     val kategori = remember {
         listOf(
             KategoriKeuangan(1, "Kebutuhan Kuliah"),
@@ -78,7 +80,7 @@ fun LayarDaftarTransaksi() {
             containerColor = Latar,
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { /* Belum difungsikan pada Tugas 3 */ },
+                    onClick = onTambahTransaksi,
                     containerColor = Ungu,
                     contentColor = Color.White
                 ) {
