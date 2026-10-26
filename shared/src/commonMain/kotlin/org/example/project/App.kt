@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -30,8 +31,12 @@ private val RightPurple = Color(0xFF6950FF)
 
 @Composable
 fun App() {
-    var showMembers by remember { mutableStateOf(false) }
-    var showTransactions by remember { mutableStateOf(false) }
+    var showMembers by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var showTransactions by rememberSaveable {
+        mutableStateOf(false)
+    }
 
     MaterialTheme {
         Surface(
@@ -66,7 +71,9 @@ fun App() {
                         Spacer(Modifier.height(18.dp))
 
                         Button(
-                            onClick = { showMembers = false },
+                            onClick = {
+                                showMembers = false
+                            },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = ButtonPurple
@@ -141,7 +148,9 @@ fun App() {
                         Spacer(Modifier.height(22.dp))
 
                         Button(
-                            onClick = { showTransactions = true },
+                            onClick = {
+                                showTransactions = true
+                            },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = ButtonPurple
@@ -160,7 +169,9 @@ fun App() {
                         Spacer(Modifier.height(10.dp))
 
                         Button(
-                            onClick = { showMembers = true },
+                            onClick = {
+                                showMembers = true
+                            },
                             shape = RoundedCornerShape(50),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = ButtonPurple

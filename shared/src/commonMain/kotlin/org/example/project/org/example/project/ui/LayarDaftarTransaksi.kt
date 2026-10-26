@@ -19,6 +19,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,9 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.example.project.data.PenyimpananTransaksi
 import org.example.project.model.JenisTransaksi
 import org.example.project.model.KategoriKeuangan
-import org.example.project.model.TransaksiKeuangan
 
 private val Ungu = Color(0xFF6B4EAA)
 private val Latar = Color(0xFFF7F3FC)
@@ -46,29 +48,17 @@ fun LayarDaftarTransaksi(
         )
     }
 
-    val transaksi = remember {
-        listOf(
-            TransaksiKeuangan(1, "Alat tulis", 18000L, JenisTransaksi.PENGELUARAN, 1),
-            TransaksiKeuangan(2, "Bensin motor", 30000L, JenisTransaksi.PENGELUARAN, 2),
-            TransaksiKeuangan(3, "Nonton film", 50000L, JenisTransaksi.PENGELUARAN, 3),
-            TransaksiKeuangan(4, "Cetak tugas", 12000L, JenisTransaksi.PENGELUARAN, 1),
-            TransaksiKeuangan(5, "Uang saku", 500000L, JenisTransaksi.PEMASUKAN, 4),
-            TransaksiKeuangan(6, "Makan siang", 20000L, JenisTransaksi.PENGELUARAN, 4),
-            TransaksiKeuangan(7, "Buku kuliah", 75000L, JenisTransaksi.PENGELUARAN, 1),
-            TransaksiKeuangan(8, "Transportasi", 15000L, JenisTransaksi.PENGELUARAN, 2),
-            TransaksiKeuangan(9, "Beasiswa", 1000000L, JenisTransaksi.PEMASUKAN, 4),
-            TransaksiKeuangan(10, "Kopi", 18000L, JenisTransaksi.PENGELUARAN, 4),
-            TransaksiKeuangan(11, "Fotokopi", 8000L, JenisTransaksi.PENGELUARAN, 1)
-        )
-    }
+    // Mengambil transaksi dari penyimpanan bersama.
+    // UI akan diperbarui ketika isi StateFlow berubah.
+    val daftarTransaksi by PenyimpananTransaksi.daftar.collectAsState()
 
-    val daftarTerurut = transaksi.sortedByDescending { it.id }
+    val daftarTerurut = daftarTransaksi.sortedByDescending { it.id }
 
-    val totalPemasukan = transaksi
+    val totalPemasukan = daftarTransaksi
         .filter { it.jenis == JenisTransaksi.PEMASUKAN }
         .sumOf { it.nominal }
 
-    val totalPengeluaran = transaksi
+    val totalPengeluaran = daftarTransaksi
         .filter { it.jenis == JenisTransaksi.PENGELUARAN }
         .sumOf { it.nominal }
 
@@ -84,7 +74,10 @@ fun LayarDaftarTransaksi(
                     containerColor = Ungu,
                     contentColor = Color.White
                 ) {
-                    Text("+", fontSize = 28.sp)
+                    Text(
+                        text = "+",
+                        fontSize = 28.sp
+                    )
                 }
             }
         ) { padding ->
@@ -92,7 +85,10 @@ fun LayarDaftarTransaksi(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 12.dp
+                    )
             ) {
                 Text(
                     text = "Pencatatan Keuangan",
@@ -116,7 +112,9 @@ fun LayarDaftarTransaksi(
                         containerColor = Ungu
                     )
                 ) {
-                    Column(Modifier.padding(16.dp)) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
                         Text(
                             text = "Ringkasan Keuangan",
                             color = Color.White,
@@ -140,26 +138,30 @@ fun LayarDaftarTransaksi(
                         ) {
                             Column {
                                 Text(
-                                    "Pemasukan",
+                                    text = "Pemasukan",
                                     color = Color.White,
                                     fontSize = 12.sp
                                 )
+
                                 Text(
-                                    "Rp ${totalPemasukan.formatRupiah()}",
+                                    text = "Rp ${totalPemasukan.formatRupiah()}",
                                     color = Color.White,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 12.sp
                                 )
                             }
 
-                            Column(horizontalAlignment = Alignment.End) {
+                            Column(
+                                horizontalAlignment = Alignment.End
+                            ) {
                                 Text(
-                                    "Pengeluaran",
+                                    text = "Pengeluaran",
                                     color = Color.White,
                                     fontSize = 12.sp
                                 )
+
                                 Text(
-                                    "Rp ${totalPengeluaran.formatRupiah()}",
+                                    text = "Rp ${totalPengeluaran.formatRupiah()}",
                                     color = Color.White,
                                     fontWeight = FontWeight.Medium,
                                     fontSize = 12.sp
