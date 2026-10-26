@@ -204,6 +204,146 @@ Pengujian dapat dijalankan melalui Android Studio atau menggunakan perintah Grad
   ./gradlew :shared:iosSimulatorArm64Test
   ```
 
+## Modul 4. Form Transaksi dan Daftar Reaktif
+
+Pengguna dapat menambahkan transaksi melalui tombol tambah (FAB). Form transaksi menyediakan kolom judul transaksi, nominal, jenis transaksi, kategori, dan catatan opsional. Judul wajib diisi dan nominal harus berupa angka lebih dari Rp0 agar transaksi dapat disimpan.
+
+Setelah transaksi berhasil disimpan, aplikasi kembali ke halaman daftar. Transaksi baru langsung ditampilkan di urutan teratas, sedangkan ringkasan pemasukan, pengeluaran, dan saldo diperbarui secara otomatis melalui `StateFlow`.
+
+Pengelolaan state form dilakukan menggunakan `TransaksiUiState` dan `TransaksiViewModel`. Data transaksi disimpan sementara dalam `PenyimpananTransaksi` menggunakan `MutableStateFlow`, sehingga daftar dapat mengamati perubahan data tanpa perlu dibuka ulang secara manual.
+
+Data masih disimpan di memori, sehingga transaksi yang ditambahkan tidak dijamin bertahan setelah proses aplikasi dihentikan atau aplikasi dijalankan ulang.
+
+### Fitur Aplikasi
+
+- **Pencatatan transaksi:** Menambahkan transaksi pemasukan dan pengeluaran.
+- **Validasi form:** Memastikan judul dan nominal memenuhi ketentuan sebelum transaksi disimpan.
+- **Kategori transaksi:** Mengelompokkan transaksi berdasarkan kebutuhan kuliah, transportasi, hiburan, dan makanan.
+- **Catatan opsional:** Menambahkan keterangan pada transaksi.
+- **Ringkasan keuangan:** Menampilkan total pemasukan, total pengeluaran, dan saldo.
+- **Daftar reaktif:** Memperbarui daftar transaksi ketika data berubah.
+- **Pengelolaan state dengan MVVM:** Memisahkan state dan logika form dari komponen UI.
+- **StateFlow:** Mengalirkan perubahan data dari penyimpanan ke tampilan.
+- **Pemulihan state saat rotasi:** Mempertahankan halaman dan input form saat konfigurasi layar berubah melalui pengelolaan state yang sesuai.
+
+### Tangkapan Layar Aplikasi
+
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/2b77a79f-9c0b-4246-a98c-5d0e4afd7a9d" />
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/7f0b4b30-f8aa-410d-8756-6db603af190f" />
+<img width="193" height="395" alt="image" src="https://github.com/user-attachments/assets/248cea4c-b7ab-4456-9233-7d2d57437881" />
+
+
+## Teknologi yang Digunakan
+
+- Kotlin
+- Kotlin Multiplatform
+- Compose Multiplatform
+- Material 3
+- Kotlin Coroutines
+- Kotlin Flow dan StateFlow
+- ViewModel
+- Gradle
+
+## Struktur Project
+
+Kode bersama aplikasi berada pada modul `shared`, khususnya source set `commonMain`. Struktur direktori utama yang berkaitan dengan fitur pencatatan keuangan adalah sebagai berikut.
+
+```text
+shared/
+└── src/
+    └── commonMain/
+        └── kotlin/
+            └── org/example/project/
+                ├── App.kt
+                ├── data/
+                │   └── PenyimpananTransaksi.kt
+                ├── model/
+                │   ├── TransaksiKeuangan.kt
+                │   ├── KategoriKeuangan.kt
+                │   ├── StatusTransaksi.kt
+                │   └── TransaksiUiState.kt
+                └── ui/
+                    ├── LayarUtama.kt
+                    ├── LayarDaftarTransaksi.kt
+                    ├── FormTransaksiScreen.kt
+                    ├── KolomTeks.kt
+                    └── TransaksiViewModel.kt
+```
+
+Struktur di atas menggambarkan file fitur yang telah dibuat. Sesuaikan lokasi direktori dengan struktur aktual repository jika berbeda.
+
+## Arsitektur MVVM
+
+Aplikasi menerapkan pola MVVM untuk memisahkan tanggung jawab setiap bagian.
+
+| Komponen | Tanggung jawab |
+|---|---|
+| Model | Merepresentasikan data transaksi, kategori, dan state UI. |
+| View | Menampilkan form, daftar transaksi, serta ringkasan keuangan menggunakan Compose. |
+| ViewModel | Mengelola state form, validasi, dan proses penyimpanan transaksi. |
+| Penyimpanan | Menyimpan daftar transaksi sementara menggunakan `MutableStateFlow`. |
+
+Alur data transaksi:
+
+```text
+Pengguna
+   ↓
+FormTransaksiScreen
+   ↓
+TransaksiViewModel
+   ↓
+PenyimpananTransaksi
+   ↓
+StateFlow daftar transaksi
+   ↓
+LayarDaftarTransaksi
+```
+
+## Panduan Menjalankan Project
+
+### Menjalankan aplikasi di Android Studio
+
+1. Buka Android Studio.
+2. Pilih **Open**, kemudian pilih folder utama repository.
+3. Tunggu hingga proses Gradle Sync selesai.
+4. Pilih konfigurasi `androidApp`.
+5. Pilih emulator Android atau perangkat fisik yang sudah terhubung.
+6. Klik **Run** untuk menjalankan aplikasi.
+
+Nama konfigurasi dapat berbeda sesuai pengaturan project.
+
+### Menjalankan aplikasi Android melalui Terminal
+
+Dari folder utama project, jalankan perintah berikut pada PowerShell:
+
+```powershell
+.\gradlew.bat :androidApp:assembleDebug
+```
+
+Untuk menjalankan aplikasi secara langsung, gunakan konfigurasi Run yang tersedia di Android Studio.
+
+### Menjalankan aplikasi Desktop
+
+Jika target Desktop tersedia pada konfigurasi Gradle project, jalankan:
+
+```powershell
+.\gradlew.bat :desktopApp:run
+```
+
+Perintah tersebut perlu disesuaikan apabila nama modul Desktop di repository berbeda.
+
+## Pengujian Fitur
+
+Pengujian manual dilakukan untuk memastikan fitur utama berjalan dengan baik.
+
+- Membuka halaman daftar transaksi.
+- Membuka form melalui tombol tambah.
+- Memastikan tombol simpan tidak aktif ketika input wajib belum valid.
+- Menambahkan transaksi pemasukan dan pengeluaran.
+- Memastikan transaksi baru muncul di urutan teratas.
+- Memastikan total pemasukan, total pengeluaran, dan saldo diperbarui.
+- Memutar layar dan memeriksa apakah halaman serta input form tetap terjaga.
+
 
 ## Tujuan Proyek
 
